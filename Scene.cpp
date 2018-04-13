@@ -20,8 +20,7 @@ Scene::~Scene()
 
 void Scene::init()
 {
-	setValues(); 
-	glm::vec2 geom[2] = {glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH-32), float(CAMERA_HEIGHT-32))};
+	glm::vec2 geom[2] = {glm::vec2(0.f, 0.f), glm::vec2(float(CAMERA_WIDTH), float(CAMERA_HEIGHT-32))};
 	glm::vec2 texCoords1[2] = {glm::vec2(120.f / 512.0, 0.f), glm::vec2((120.f + 320.f) / 512.0f, 160.f / 256.0f)};
 	glm::vec2 texCoords2[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
 
@@ -40,11 +39,7 @@ void Scene::init()
 	currentTime = 0.0f;
 	
 	
-	lemming.init(glm::vec2(60, 30), simpleTexProgram);
-	++actualment[lemming.getTipus()];
-	lemming.setMapMask(&maskTexture);
-	lemmings.push_back(lemming);
-}
+	}
 
 unsigned int x = 0;
 
@@ -54,8 +49,7 @@ void Scene::update(int deltaTime)
 	/*list<Lemming>::iterator it;
 	for (it = lemmings.begin(); it != lemmings.end(); ++it)*/
 		//*it.update(deltaTime);
-	for (unsigned int i = 0; i < lemmings.size(); ++i)
-		lemmings[i].update(deltaTime);
+
 }
 
 void Scene::render()
@@ -74,9 +68,6 @@ void Scene::render()
 	simpleTexProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
 	modelview = glm::mat4(1.0f);
 	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
-	list<Lemming>::iterator it;
-	for (unsigned int i = 0; i < lemmings.size(); ++i)
-		lemmings[i].render();
 
 }
 
@@ -92,6 +83,7 @@ void Scene::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButt
 }
 
 void Scene::mouseRelease(int button) {
+
 	
 }
 

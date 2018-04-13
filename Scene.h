@@ -46,16 +46,10 @@ public:
 	ShaderProgram simpleTexProgram, maskedTexProgram;
 	float currentTime;
 	glm::mat4 projection;
-	vector<Lemming> lemmings;  
+	
 	string LevelTextureLocation;
-	string LevelMaskLocation;  
-	int maxPikmins;
-	vector <int> actualment{ 0,0,0,0 }; 
-	int survived; 
-	int Time; 
-	Lemming lemming; 
-	glm::vec2 spawnPoint; 
-	glm::vec2 exitPoint; 
+	string LevelMaskLocation;
+	bool bmenu; 
 
 };
 
