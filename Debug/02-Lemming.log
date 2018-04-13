@@ -1,6 +1,2 @@
-﻿  PowersBar.cpp
-d:\unidaddupcfib\vj\exlemmings\lemmings\02-lemming\powersbar.cpp(152): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\02-lemming\powersbar.cpp(153): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-  Game.cpp
-  Generando código...
+﻿  Scene.cpp
   02-Lemming.vcxproj -> D:\UnidadDUPCFIB\VJ\ExLemmings\Lemmings\02-Lemming\Debug\02-Lemming.exe
