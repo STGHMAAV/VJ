@@ -4,6 +4,8 @@
 
 #include "Sprite.h"
 #include "VariableTexture.h"
+#include "TexturedQuad.h"
+#include "ShaderProgram.h"
 
 
 // Lemming is basically a Sprite that represents one lemming. As such it has
@@ -15,29 +17,49 @@ class Lemming
 
 public:
 	void init(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram);
-	void update(int deltaTime);
-	void render();
-	
+	void update(int deltaTime, float centreX);
+	void render(glm::mat4 projection);
+
+	void mouseMoved(int mouseX, int mouseY, bool bLeftButton);
+	int  mouseRelease(int mouseX, int mouseY, int button);
 	void setMapMask(VariableTexture *mapMask);
+	 
+	bool intersecta(int mouseX, int mouseY);
 	int getTipus();
+
+	void eraseMask(glm::vec2 pos);
+	void explosion(glm::vec2 pos);
+	void bash(glm::vec2 pos, int ind);
+	void build(glm::vec2 pos, int ind );
+
+
+	void keyReleased(int key);
+	void keyPressed(int key);
 	
 private:
 	int collisionFloor(int maxFall);
 	bool collision();
-	
-	
+	int* getboundingBox();
+	void initShaders();
 private:
 	enum LemmingState
 	{
 		WALKING_LEFT_STATE, WALKING_RIGHT_STATE, FALLING_LEFT_STATE, FALLING_RIGHT_STATE, DYING_STATE, DEATH_STATE, DIG_STATE, BASH_LEFT_STATE,
 		BASH_RIGHT_STATE, CLIMB_STATE, BUILD_LEFT_STATE, BUILD_RIGHT_STATE, EXPLODE_STATE, BLOCK_STATE, COLOR_BLOCK_STATE
 	};
+
 	LemmingState state;
-	Texture spritesheet;
+	Texture spritesheet, selected[2];
+	TexturedQuad *selectedLemmingQuad;
 	Sprite *sprite;
 	VariableTexture *mask;
+	ShaderProgram zetaTextProgram;
+	glm::mat4 modelView;
+	int lemmingClicked;
+	int boundingBox[4];
+	float centreX;
+	bool bselected, primero;
 	int tipusLemming;
-
 };
 
 
