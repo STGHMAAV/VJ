@@ -21,6 +21,7 @@
     <ClInclude Include="PowersBar.h" />
     <ClInclude Include="Quad.h" />
     <ClInclude Include="Scene.h" />
+    <ClInclude Include="SelectLevels.h" />
     <ClInclude Include="Shader.h" />
     <ClInclude Include="ShaderProgram.h" />
     <ClInclude Include="Sprite.h" />
@@ -38,6 +39,7 @@
     <ClCompile Include="PowersBar.cpp" />
     <ClCompile Include="Quad.cpp" />
     <ClCompile Include="Scene.cpp" />
+    <ClCompile Include="SelectLevels.cpp" />
     <ClCompile Include="Shader.cpp" />
     <ClCompile Include="ShaderProgram.cpp" />
     <ClCompile Include="Sprite.cpp" />

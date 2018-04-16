@@ -1,7 +1,6 @@
 #include <GL/glew.h>
 #include <GL/glut.h>
 #include "Game.h"
-#include "time.h"
 
 
 //Remove console (only works in Visual Studio)
@@ -13,6 +12,7 @@
 
 static int prevTime;
 static Game game; // This object represents our whole game
+static int speed = 1.0f;
 
 
 // If a key is pressed this callback is called
@@ -57,7 +57,7 @@ static void mouseCallback(int button, int state, int x, int y)
 	if(state == GLUT_DOWN)
 		Game::instance().mousePress(button);
 	else if(state == GLUT_UP)
-		Game::instance().mouseRelease(button);
+		speed = Game::instance().mouseRelease(x, y, button);
 }
 
 static void drawCallback()
@@ -69,7 +69,7 @@ static void drawCallback()
 static void idleCallback()
 {
 	int currentTime = glutGet(GLUT_ELAPSED_TIME);
-	int deltaTime = currentTime - prevTime;
+	int deltaTime = (currentTime - prevTime)*speed;
 	
 	if(deltaTime > TIME_PER_FRAME)
 	{
@@ -84,11 +84,11 @@ static void idleCallback()
 
 int main(int argc, char **argv)
 {
-	srand(time(NULL));
 	// GLUT initialization
 	glutInit(&argc, argv);
 	glutInitDisplayMode(GLUT_RGBA | GLUT_DOUBLE | GLUT_DEPTH);
 	glutInitWindowPosition(100, 100);
+	//Le sumamos a 480 + 84 pixeles del panel de poderes
 	glutInitWindowSize(960, 564);
 
 	glutCreateWindow(argv[0]);

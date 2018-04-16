@@ -6,32 +6,33 @@
 #include "ShaderProgram.h"
 #include "TexturedQuad.h"
 
-class Menu 
+class Menu
 {
 public:
 	Menu();
 	~Menu();
 
-	void init();
+	void init(glm::mat4 projection);
 	void render();
 
 	void mouseMoved(int mouseX, int mouseY, bool bLeftButton);
-	bool mouseRelease(int button);
+	int mouseRelease(int button);
 
 private:
 	void initShaders();
 	void startButtonMatrixs();
+	bool intersecta(int x, int y, glm::vec4 min, glm::vec4 max);
 
 private:
-	Texture background, start[3];
-	TexturedQuad *backQuad, *startQuad[3];
+	Texture background, start[3], select[3];
+	TexturedQuad *backQuad, *startQuad[3], *selectQuad[3];
 	ShaderProgram zetaTextProgram;
 	glm::mat4 projection;
 	//0 normal, 1 raton encima, 2 clik en el boton
-	int startSprite;
+	int startSprite, selectSprite;
 	//start is pressed
-	bool overStart;
-	glm::mat4 startInvMatrix, startModel;
+	bool overStart, overSelect;
+	glm::mat4 startInvMatrix, startModel, selectMatrix, selectModel;
 };
 
 #endif
