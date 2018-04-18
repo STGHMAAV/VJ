@@ -23,6 +23,8 @@ Scene:
 PowersBar: 
 	- Arreglar iconos para que se vean mejor (imagenes) (MÁÁV)
 	- Poner los botones para spawnear el tipo de Pikmin por color.
+	- Que cada botón haaga su acción
+	- Si da tiempo, que un botón al clicarlo sobre lemming que ya hace esa acción, pare de hacerla
 Trampas: 
 	- Crear la clase trampa (MÁÁV)
 Switch:
