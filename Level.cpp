@@ -43,9 +43,37 @@ void Level::initMatrixs() {
 }
 
 void Level::keypressed(int key) {
-	for (int i = 0; i < 1; ++i) {
-		lemmings[i].keyPressed(key);
+	switch (key) {
+		case 101: //EXPLOSION, Key: e
+			for (int i = 0; i < vPik.size(); ++i) vPik[i].keyPressed(key);
+			break;
+		case 49: //BASH, Key: 1
+			for (int i = 0; i < vPik.size(); ++i) vPik[i].keyPressed(key);
+			break;
+		case 50: //BUILD, Key: 2
+			for (int i = 0; i < vPik.size(); ++i) vPik[i].keyPressed(key);
+			break;
+		case 51: //DIG, Key: 3
+			for (int i = 0; i < vPik.size(); ++i) vPik[i].keyPressed(key);
+			break;
+		case 122: //SPAWN RED, KEY: z
+			spawnPikmin(0);
+			break;
+		case 120: //SPAWN BLUE, KEY: x
+			spawnPikmin(1);
+			break;
+		case 99: //SPAWN YELLOW, KEY: c
+			spawnPikmin(2);
+			break;
+		case 118: //SPAWN PURPLE, KEY: v
+			spawnPikmin(3);
+			break;
 	}
+}
+
+void Level::keyreleased(int key) {
+
+		lemmings[0].keyReleased(key);
 }
 
 void Level::renderScore() {
@@ -134,12 +162,17 @@ void Level::init(int nLevel)
 	numbers.setMinFilter(GL_NEAREST);
 	numbers.setMagFilter(GL_NEAREST);
 
-	for (int i = 0; i < 1; ++i) {
-		lemmings[i].init(glm::vec2(80, 50), simpleTexProgram);
+	/*for (int i = 0; i < 1; ++i) {
+		int aleatorio = rand() % 4;
+		lemmings[i].init(glm::vec2(80, 50), simpleTexProgram,aleatorio );
 		++actualment[lemmings[i].getTipus()];
 		lemmings[i].setMapMask(&maskTexture);
 		lemmingsSelected[i] == false;
-	}
+		++out;
+	}*/
+	int aleatorio = rand() % 4;
+	spawnPikmin(aleatorio);
+
 }
 
 void Level::setValues() {
@@ -157,11 +190,31 @@ void Level::setValues() {
 		sizeOfLevel = 512.f;
 	}
 	else if (nLevel == 2) {
-
+		maxPikmins = 50;
+		out = 0;
+		LevelTextureLocation = "images/fun1.png";
+		LevelMaskLocation = "images/fun1_mask.png";
+		spawnPoint = glm::vec2(60, 30);
+		exitPoint = glm::vec2(216, 100);
+		Time = 650;
+		survived = 0;
+		winPikmins = 10;
+		offsetxLevel = 120.f;
+		sizeOfLevel = 512.f;
 	}
 
 	else if (nLevel == 3) {
-
+		maxPikmins = 50;
+		out = 0;
+		LevelTextureLocation = "images/fun1.png";
+		LevelMaskLocation = "images/fun1_mask.png";
+		spawnPoint = glm::vec2(60, 30);
+		exitPoint = glm::vec2(216, 100);
+		Time = 650;
+		survived = 0;
+		winPikmins = 10;
+		offsetxLevel = 120.f;
+		sizeOfLevel = 512.f;
 	}
 }
 
@@ -217,7 +270,10 @@ void Level::render() {
 	modelview = glm::mat4(1.0f);
 	//modelview = glm::translate(modelview, glm::vec3(currentTime / 1000.f, 0.f, 0.f));
 	simpleTexProgram.setUniformMatrix4f("modelview", modelview);
-	for (int i = 0; i < 1; ++i) lemmings[i].render(projection);
+	//for (int i = 0; i < 1; ++i) lemmings[i].render(projection);
+	for (int i = 0; i < vPik.size(); ++i) {
+		vPik[i].render(projection); 
+	}
 
 	zetaTextProgram.use();
 	zetaTextProgram.setUniformMatrix4f("projection", projectionButtons);
@@ -250,8 +306,8 @@ void Level::update(int deltaTime)
 	if (request != -1) {
 		int stateAction = powersBar.getPowersBarState(request);
 		int total = 0;
-		for (int i = 0; i < 1; ++i) {
-			if (lemmings[i].getIfSelected() && lemmings[i].canDoAction(request)) {
+		for (int i = 0; i < vPik.size(); ++i) {
+			if (vPik[i].getIfSelected() && vPik[i].canDoAction(request)) {
 				lemmingsSelected[i] = true;
 				++total;
 			}
@@ -261,20 +317,24 @@ void Level::update(int deltaTime)
 			//Ruido de fallo
 		}
 		else {
-			for (int i = 0; i < 1; ++i) if (lemmingsSelected[i]) lemmings[i].doAction(request);
+			for (int i = 0; i < vPik.size(); ++i) if (lemmingsSelected[i]) vPik[i].doAction(request);
 			powersBar.setSpendPowers(request, total);
 		}
 		powersBar.finishRequest();
 	}
 	//ola.update(deltaTime, inCentreX);
-	for (unsigned int i = 0; i < 1; ++i)
-		lemmings[i].update(deltaTime,inCentreX);
+	/*for (unsigned int i = 0; i < 1; ++i)
+		lemmings[i].update(deltaTime,inCentreX);*/
+	for (unsigned int i = 0; i < vPik.size(); ++i) {
+		vPik[i].update(deltaTime, inCentreX);
+	}
 	cout << deltaTime << endl;
 }
 
 void Level::mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton)
 {
-	for (int i = 0; i < 1; ++i ) lemmings[i].mouseMoved(mouseX, mouseY, bLeftButton);
+	//for (int i = 0; i < 1; ++i ) lemmings[i].mouseMoved(mouseX, mouseY, bLeftButton);
+	for (int i = 0; i < vPik.size(); ++i) vPik[i].mouseMoved(mouseX, mouseY, bLeftButton);
 	mapPressed = powersBar.mouseMoved(mouseX, mouseY, bLeftButton);
 	if (mapPressed) {
 		inCentreX = mouseX - (524.f / 648.f)*960.f;
@@ -292,7 +352,9 @@ void Level::mouseRelease(int mouseX, int mouseY, int button)
 		if (speed == 4) speed = 1;
 		else speed *= 2;
 	}
-	for (int i = 0; i < 1; ++i) lemmings[i].mouseRelease(mouseX, mouseY, button);
+	for (int i = 0; i < vPik.size(); ++i) {
+		vPik[i].mouseRelease(mouseX, mouseY, button);
+	}
 }
 
 void Level::initShaders()
@@ -377,4 +439,18 @@ void Level::initShaders()
 }
 int Level::getSpeed() {
 	return speed;
+}
+
+void Level::spawnPikmin(int tipus)
+{ 
+	if (out + survived < maxPikmins) {
+		//PikminAux.init(glm::vec2(80, 50), simpleTexProgram, tipus);
+		PikminAux.init(spawnPoint, simpleTexProgram, tipus);
+		++actualment[tipus];
+		PikminAux.setMapColor(&colorTexture);
+		PikminAux.setMapMask(&maskTexture);
+		lemmingsSelected[0] == false;
+		++out;
+	}
+	vPik.push_back(PikminAux);
 }

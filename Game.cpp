@@ -34,6 +34,7 @@ void Game::keyPressed(int key)
 
 void Game::keyReleased(int key)
 {
+	//scene.keyreleased(key);
 	keys[key] = false;
 }
 

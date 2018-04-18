@@ -20,6 +20,7 @@ public:
 	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
 	void mouseRelease(int mouseX, int mouseY, int button);
 	void keypressed(int key);
+	void keyreleased(int key);
 	void eraseMask(int mouseX, int mouseY);
 	void applyMask(int mouseX, int mouseY);
 	void renderScore();
@@ -28,13 +29,17 @@ public:
 	void initShaders();
 	int getSpeed();
 
+	void spawnPikmin(int tipus); 
+
 public:
-	Texture colorTexture, powersTexture, fastForwardButton, numbers, spawn,exit;
-	VariableTexture maskTexture;
+	Texture  powersTexture, fastForwardButton, numbers, spawn,exit;
+	VariableTexture colorTexture, maskTexture;
 	MaskedTexturedQuad *map;
 	TexturedQuad *powersQuad, *fastForwardQuad, *numbersQuad[10], *spawnQuad, *exitQuad;
 	int inCentreX, speed;
 	Lemming lemmings[1];
+	Lemming PikminAux; 
+	vector<Lemming> vPik;
 	bool lemmingsSelected[1];
 	int maxPikmins, winPikmins;
 	vector <int> actualment{ 0,0,0,0 };

@@ -43,6 +43,11 @@ void Scene::update(int deltaTime)
 void Scene::keypressed(int key) {
 	if (escenario == 2) level.keypressed(key);
 }
+
+void Scene::keyreleased(int key) {
+	if (escenario == 2) level.keyreleased(key);
+}
+
 void Scene::render()
 {
 	//Cargo el Menu: la imagen de fondo, (en un futuro los botones)...

@@ -1,17 +1,19 @@
 ﻿  Lemming.cpp
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(303): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(304): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(307): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(314): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
 d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(315): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(318): warning C4244: 'inicializando': conversión de 'double' a 'float'; posible pérdida de datos
 d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(325): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
 d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(326): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(334): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
 d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(335): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(336): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(375): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(376): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(377): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(378): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(422): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
-d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(423): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(357): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(358): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(368): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(369): warning C4244: 'inicializando': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(409): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(410): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(411): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(412): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(456): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
+d:\unidaddupcfib\vj\exlemmings\lemmings\domingopreentrega2\lemming.cpp(457): warning C4244: '=': conversión de 'float' a 'int'; posible pérdida de datos
   02-Lemming.vcxproj -> D:\UnidadDUPCFIB\VJ\ExLemmings\Lemmings\DomingoPreEntrega2\Debug\02-Lemming.exe
