@@ -38,7 +38,11 @@ unsigned int x = 0;
 void Scene::update(int deltaTime)
 {
 	currentTime += deltaTime;
-	if (escenario == 2) level.update(deltaTime);
+	if (escenario == 2) {
+		level.update(deltaTime);
+		int aux = level.WantToGoBack();
+		if (aux == 1) escenario = 0;
+	}
 }
 void Scene::keypressed(int key) {
 	if (escenario == 2) level.keypressed(key);
