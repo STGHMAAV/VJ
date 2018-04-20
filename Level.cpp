@@ -74,7 +74,6 @@ void Level::keypressed(int key) { // NEW
 		else if (key == 53) request = 4;
 		else if (key == 54) request = 2;
 		else if (key == 3) request = 3;
-		cout << request << endl;
 		int stateAction = powersBar.getPowersBarState(request);
 		int total = 0;
 		for (int i = 0; i < vPik.size(); ++i) {
@@ -263,29 +262,32 @@ void Level::init(int nLevel)
 	numbers.loadFromFile("images/Buttons/numeros3.png", TEXTURE_PIXEL_FORMAT_RGBA);
 	numbers.setMinFilter(GL_NEAREST);
 	numbers.setMagFilter(GL_NEAREST);
+
 	int aleatorio = rand() % 4;
 	spawnPikmin(aleatorio);
 
 	//INICIAMOS TRAMPA Y BOTON SI LEVEL == 3
-	if (nLevel = 3) {
+	if (nLevel = 3) { //LAST MINUTE
 		//CARGAMOS LA TRAMPA
 		
 		trampa.loadFromFile("images/Environment/Lava.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		trampa.setMinFilter(GL_NEAREST);
 		trampa.setMagFilter(GL_NEAREST);
-		glm::vec2 texCoordsTrampa[2] = { glm::vec2(0.f, 0.f), glm::vec2(1.f, 1.f) };
-		glm::vec2 geomTrampa[2] = { glm::vec2(1.f,1.f), glm::vec2(32.f, 32.f) };
+		glm::vec2 texCoordsTrampa[2] = { glm::vec2(0.f, 0.f), glm::vec2(8.f,8.0f) };
+		glm::vec2 geomTrampa[2] = { glm::vec2(0.f,0.f), glm::vec2(64.f, 32.f) };
 		trampaQuad = TexturedQuad::createTexturedQuad(geomTrampa, texCoordsTrampa, zetaTextProgram);
+		
 		//CARGAMOS EL BOTON
 
 		interruptor.loadFromFile("images/Environment/ButtonSwitch.png", TEXTURE_PIXEL_FORMAT_RGBA);
 		interruptor.setMinFilter(GL_NEAREST);
 		interruptor.setMagFilter(GL_NEAREST);
-		glm::vec2 texCoordsInterruptor[2] = { glm::vec2(0.f, 0.f), glm::vec2(0.5f, 1.0f) };
-		glm::vec2 geomInterruptor[2] = { glm::vec2(1.f,1.f), glm::vec2(32.f, 32.f) };
+		glm::vec2 texCoordsInterruptor[2] = { glm::vec2(0.f, 0.5f), glm::vec2(0.5f, 1.0f) };
+		glm::vec2 geomInterruptor[2] = { glm::vec2(0.f,0.5f), glm::vec2(0.5f, 1.0f) };
 		interruptorQuad = TexturedQuad::createTexturedQuad(geomInterruptor, texCoordsInterruptor, zetaTextProgram);
+		setTrampa();
 	}
-
+	
 }
 
 void Level::setValues() {
@@ -326,23 +328,23 @@ void Level::setValues() {
 		//ost.play();
 	}
 
-	else if (nLevel == 3) {
+	else if (nLevel == 3) { //LAST MINUTE
 		maxPikmins = 30;
 		out = 0;
 		LevelTextureLocation = "images/Levels/mayhem2.png";
 		LevelMaskLocation = "images/Levels/mayhem2_mask.png";
-		spawnPoint = glm::vec2(70, 20);
+		spawnPoint = glm::vec2(50, 20);
 		exitPoint = glm::vec2(216, 107);
 		Time = 650;
 		survived = 0;
 		winPikmins = 10;
 		offsetxLevel = 120.f;
 		sizeOfLevel = 671.f;
-		requiredPercent = 90;
+		requiredPercent = 40;
 		exitBox = glm::vec4(exitPoint[0], exitPoint[0] + 32, exitPoint[1], exitPoint[1] + 32);
 		tipusTrampa = 0; 
-		trampaBox = glm::vec4(80, 96, 30, 46);// POR DEFINIR
-		interruptorBox = glm::vec4(2, 2, 150, 150); // POR DEFINIR
+		trampaBox = glm::vec4(135, 199, 60, 92);// POR DEFINIR
+		interruptorBox = glm::vec4(130, 162, 107, 139); // POR DEFINIR
 		//ost.openFromFile("soundTrack/06theimpactsite.wav");
 		//ost.setLoop(true);
 		//ost.play();
@@ -382,7 +384,6 @@ void Level::applyMask(int mouseX, int mouseY)
 void Level::render() {
 	glm::mat4 modelview;
 	if (weLost == 1) {
-		cout << "no puedo entrar aqui" << endl;
 		zetaTextProgram.use();
 		zetaTextProgram.setUniformMatrix4f("projection", projectionButtons);
 		zetaTextProgram.setUniform4f("color", 1.0f, 1.0f, 1.0f, 1.0f);
@@ -413,7 +414,6 @@ void Level::render() {
 		renderFinalScore();
 	}
 	else {
-		cout << "pero k pasa if imposible " << endl;
 		powersBar.render();
 		maskedTexProgram.use();
 		//projection2 = glm::translate(projection2, glm::vec3(currentTime / 2000.f, 0.f, 0.f));
@@ -461,11 +461,13 @@ void Level::render() {
 		//Renderizamos la salida 
 		zetaTextProgram.setUniformMatrix4f("modelview", exitModel);
 		exitQuad->render(exit);
-		if (nLevel == 3) {
-			zetaTextProgram.setUniformMatrix4f("trampa", trampaModel);
-			spawnQuad->render(trampa);
-			zetaTextProgram.setUniformMatrix4f("interruptor", interruptorModel);
-			spawnQuad->render(interruptor);
+		if (nLevel == 3) { //LAST MINUTE
+			if (!interruptorON) {
+				zetaTextProgram.setUniformMatrix4f("modelview", trampaModel);
+				spawnQuad->render(trampa);
+				zetaTextProgram.setUniformMatrix4f("modelview", interruptorModel);
+				spawnQuad->render(interruptor);
+			}
 		}
 	}
 }
@@ -530,7 +532,6 @@ void Level::update(int deltaTime)
 			weWin = 1;
 		}*/
 		//else if (winPikmins == 10) weWin = 1;
-		cout << "estoy haciendo update" << endl;
 		deleteDeadPikmins();
 		gameFinish(); //susituyo el if por la funcion
 	}
@@ -734,18 +735,19 @@ void Level::deleteDeadPikmins() { //NEW
 	}
 }
 
-void Level::collisionLevel() { //NEW
+void Level::collisionLevel() { //LAST MINUTE
 	for (int i = 0; i < vPik.size(); ++i) {
 		bool doesHit = vPik[i].hitLevel(exitBox);
 		if (doesHit) {
 			++survived;
 			vPik.erase(vPik.begin() + i);
 		}
-		if (nLevel == 3 && vPik.size() > 0) {
-			if (vPik[i].hitLevel(trampaBox)) {
+		if (nLevel == 3 && vPik.size() > 0 && !interruptorON) {
+			if (tipusTrampa!= vPik[i].getTipus() && vPik[i].touchTrampa(trampaBox)) {
 				vPik.erase(vPik.begin() + i);
 			}
 			else if (vPik[i].hitLevel(interruptorBox)) {
+				interruptorON = true; 
 				eraseTrampa(); 
 			}
 		}
@@ -754,12 +756,18 @@ void Level::collisionLevel() { //NEW
 
 void Level::gameFinish() { //NEW
 	if (vPik.size() == 0) {
-		//if (out == maxPikmins) {
-			if ((float(survived) / float(maxPikmins) * 100) > requiredPercent)
+		if (out == maxPikmins) {
+			if ((float(survived) / float(maxPikmins) * 100) > requiredPercent) {
+				cout << "WE WIN" << endl; 
 				weWin = 1;
+				}
 			else
 				weLost = 1;
-		//}
+		}
+		else if (out < maxPikmins) {
+			int aleatorio = rand() % 4;
+			spawnPikmin(aleatorio);
+		}
 	}
 	if (Time == 0) {
 		if ((float(survived) / float(maxPikmins) * 100) > requiredPercent) {
@@ -777,19 +785,20 @@ void Level::Nuke() { //NEW
 	gameFinish();
 }
 
-void Level::setTrampa() {
-	for (int i = 0; i < trampaBox[1]; ++i) {
-		for (int j = 0; j < trampaBox[3]; ++j) {
-			if (maskTexture.pixel(trampaBox[0] + i, trampaBox[2] + j) == 0)
+void Level::setTrampa() { 
+	for (int i = 0; i < trampaBox[1]- trampaBox[0]; ++i) {
+		for (int j = 0; j < trampaBox[3] - trampaBox[2]; ++j) {
+			if (maskTexture.pixel(trampaBox[0] + i, trampaBox[2] + j) == 0){
 				maskTexture.setPixel(trampaBox[0] + i, trampaBox[2] + j, 255 - tipusTrampa - 2);
+			}
 		}
 	}
 }
 
 void Level::eraseTrampa() {
 
-	for (int i = 0; i < trampaBox[1]; ++i) {
-		for (int j = 0; j < trampaBox[3]; ++j) {
+	for (int i = 0; i < trampaBox[1] - trampaBox[0]; ++i) {
+		for (int j = 0; j < trampaBox[3] - trampaBox[2]; ++j) {
 			if (maskTexture.pixel(trampaBox[0] + i, trampaBox[2] + j) == 255 - tipusTrampa - 2)
 				maskTexture.setPixel(trampaBox[0] + i, trampaBox[2] + j, 0);
 		}
