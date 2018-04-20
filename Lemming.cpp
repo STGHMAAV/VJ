@@ -12,12 +12,10 @@
 #define JUMP_HEIGHT 96
 #define FALL_STEP 4
 
-
 enum LemmingAnims
 {
 	WALKING_LEFT, WALKING_RIGHT, FALLING_LEFT, FALLING_RIGHT, DYING, DEATH, DIG, BASH_LEFT, BASH_RIGHT, CLIMB, BUILD_LEFT, BUILD_RIGHT, EXPLODE, BLOCK, STOPPER
 };
-
 
 void Lemming::init(const glm::vec2 &initialPosition, ShaderProgram &shaderProgram, int tipus)
 {
@@ -281,19 +279,19 @@ void Lemming::update(int deltaTime, float centreX)
 		}
 		break;
 	case STOP_LEFT_STATE:
-		//sprite->changeAnimation(STOPPER);
+		sprite->changeAnimation(STOPPER);
 		stop(sprite->position());
 		break; 
 	case STOP_RIGHT_STATE:
-		//sprite->changeAnimation(STOPPER);
+		sprite->changeAnimation(STOPPER);
 		stop(sprite->position());
 		break;
 	case STOP_COLOR_LEFT_STATE:
-		//sprite->changeAnimation(STOPPER);
+		sprite->changeAnimation(STOPPER);
 		stopColor(sprite->position());
 		break; 
 	case STOP_COLOR_RIGHT_STATE:
-		//sprite->changeAnimation(STOPPER);
+		sprite->changeAnimation(STOPPER);
 		stopColor(sprite->position());
 		break;
 	case CLIMB_LEFT_STATE:
@@ -541,7 +539,6 @@ bool Lemming::collision(int offset)
 	if (mask->pixel(posBase.x, posBase.y) == 0 || mask->pixel(posBase.x, posBase.y) == 255 - tipusLemming - 2) 
 		if (mask->pixel(posBase.x + 1, posBase.y) == 0 || mask->pixel(posBase.x + 1, posBase.y) == 255 - tipusLemming - 2)
 			return false;
-	cout << "EN ESTA LLAMADA A COLISSION, EL PIXEL A CONSULTAR VALE: " << 255 - tipusLemming - 2 << " EL PIXEL VALE: " << coutAux << endl; 
 	return true;
 }
 
@@ -602,7 +599,7 @@ bool Lemming::intersecta(int mouseX, int mouseY) {
 	min[1] = min[1]*yratio;
 	max[0] = max[0]*xratio + centreX;
 	max[1] = max[1]*yratio;*/
-	cout << "BoungdingBox del lemming: " << min[0] << " " << min[1] << " " << max[0] << " " << max[1] << endl;
+	//cout << "BoungdingBox del lemming: " << min[0] << " " << min[1] << " " << max[0] << " " << max[1] << endl;
 	return (((mouseX < max[0]) && (mouseX > min[0])) && ((mouseY < max[1]) && (mouseY > min[1])));
 }
 
@@ -655,8 +652,10 @@ void Lemming::keyPressed(int key)
 {
 	if (bselected) {
 		if (key == 101) {
-			state = EXPLODE_STATE;
-			sprite->changeAnimation(EXPLODE);
+			if (state == WALKING_LEFT_STATE || state == WALKING_RIGHT_STATE) {
+				state = EXPLODE_STATE;
+				sprite->changeAnimation(EXPLODE);
+			}
 		}
 		if (key == 49) {
 			if (state == WALKING_LEFT_STATE) {
@@ -796,8 +795,40 @@ void Lemming::doAction(int request){
 
 void Lemming::die()
 {
-	//sprite->changeAnimation(DEATH);
-	//state = DEATH_STATE;
+	state = DEATH_STATE;
 }
+
+void Lemming::explode()
+{
+	if (state == WALKING_LEFT_STATE || state == WALKING_RIGHT_STATE) {
+		state = EXPLODE_STATE;
+		sprite->changeAnimation(EXPLODE);
+		explosion(sprite->position());
+	}
+}
+
+bool Lemming::hitLevel(glm::vec4 Box)
+{
+	int posXmin = Box[0];
+	int posXmax = Box[1];
+	int posYmin = Box[2];
+	int posYmax = Box[3];
+	glm::vec2 aux = sprite->position();
+	int pikX = aux[0];
+	int pikY = aux[1];
+	if (pikX > posXmin && pikX < posXmax && pikY > posYmin && pikY < posYmax) {
+		state = DEATH_STATE;
+		return true; 
+	}
+	return false;
+}
+
+bool Lemming::isDead() {
+	if (state == DEATH_STATE) {
+		return true;
+	}
+	return false;
+}
+
 
 

@@ -5,7 +5,7 @@
 #include <list>
 #include "Lemming.h"
 
-class Level 
+class Level
 {
 public:
 	Level();
@@ -18,29 +18,36 @@ public:
 
 
 	void mouseMoved(int mouseX, int mouseY, bool bLeftButton, bool bRightButton);
-	void mouseRelease(int mouseX, int mouseY, int button);
+	int mouseRelease(int mouseX, int mouseY, int button);
 	void keypressed(int key);
 	void keyreleased(int key);
 	void eraseMask(int mouseX, int mouseY);
 	void applyMask(int mouseX, int mouseY);
 	void renderScore();
+	void renderFinalScore();
 	int WantToGoBack();
+
+	void gameFinish(); //NEW
+	void Nuke(); //NEW
+	void deleteDeadPikmins(); //NEW
+
+	void collisionLevel(); //NEW
 
 	void initMatrixs();
 	void initShaders();
 	int getSpeed();
 
-	void spawnPikmin(int tipus); 
+	void spawnPikmin(int tipus);
 
-public:
-	Texture  powersTexture, fastForwardButton, numbers, spawn, exit, pausedTexture, loseTextures[2], winTexture;
+private:
+	Texture  powersTexture, fastForwardButton, numbers, spawn, exit, pausedTexture, loseTextures[2], gameOverTexture, winTexture, winTextures[2];
 	VariableTexture colorTexture, maskTexture;
 	MaskedTexturedQuad *map;
-	TexturedQuad *powersQuad, *fastForwardQuad, *numbersQuad[10], *spawnQuad, *exitQuad, *pausedQuad, *loseQuads[3];
+	TexturedQuad *powersQuad, *fastForwardQuad, *numbersQuad[10], *numbersResultQuad[10], *spawnQuad, *exitQuad, *pausedQuad, *gameOverAndWinQuad, *loseQuads[3];
 	int inCentreX, speed, stateBackMenu, stateRetry;
 	bool overBackMenu, overRetry;
 	Lemming lemmings[1];
-	Lemming PikminAux; 
+	Lemming PikminAux;
 	vector<Lemming> vPik;
 	bool lemmingsSelected[1];
 	int maxPikmins, winPikmins, paused, weLost, weWantToGoBack, weWin;
@@ -55,6 +62,12 @@ public:
 	string LevelMaskLocation;
 	PowersBar powersBar;
 	glm::mat4 projection, projection2, fastForwardModel, projectionButtons, timeMatrix[3], outLemmingsMatrix[3], inLemmingsMatrix[3], spawnModel, exitModel;
-	glm::mat4 pausedMatrix, loseMatrix[2];
+	glm::mat4 pausedMatrix, loseMatrix[2], resultMatrix[3][3];
 	ShaderProgram simpleTexProgram, maskedTexProgram, zetaTextProgram;
+	//NEW
+	int requiredPercent; 
+	Texture trampa;
+	Texture interruptor;
+	glm::vec4 trampaBox, exitBox, interruptorBox; 
+	glm::mat4 trampaModel;
 };

@@ -41,7 +41,12 @@ public:
 	void doAction(int request);
 
 	void die(); 
-	
+
+	//NEW
+	void explode(); 
+	bool hitLevel(glm::vec4 Box);
+	bool isDead(); 
+
 private:
 	int collisionFloor(int maxFall);
 	bool collisionCeiling(int offset);
